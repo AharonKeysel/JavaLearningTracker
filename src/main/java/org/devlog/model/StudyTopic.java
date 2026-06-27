@@ -84,5 +84,6 @@ public class StudyTopic {
                 ", createdAt=" + createdAt +
                 ", notes='" + notes + '\'' +
                 '}';
+
     }
 }

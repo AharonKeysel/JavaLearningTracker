@@ -11,6 +11,7 @@ public class TopicPanel {
     private JButton createButton;
     private JComboBox statusBox;
     private JScrollPane topicTableScrollPanel;
+    
 
     public JTable getTopicListTable() {
         return topicListTable;

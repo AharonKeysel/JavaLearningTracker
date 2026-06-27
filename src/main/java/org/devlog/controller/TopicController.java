@@ -4,6 +4,7 @@ import org.devlog.model.StudyTopic;
 import org.devlog.model.enums.StudyStatus;
 import org.devlog.model.enums.TopicCategory;
 import org.devlog.service.StudyTopicService;
+import org.devlog.ui.navigation.NotesOpener;
 import org.devlog.ui.panels.TopicPanel;
 import org.devlog.ui.table.StudyTopicTableModel;
 
@@ -14,12 +15,19 @@ public class TopicController {
     private final StudyTopicService studyTopicService;
     private final TopicPanel topicPanel;
     private final StudyTopicTableModel studyTopicTableModel = new StudyTopicTableModel();
+    private final NotesOpener notesOpener;
 
-    public TopicController(StudyTopicService studyTopicService, TopicPanel topicPanel) {
+    public TopicController(StudyTopicService studyTopicService,
+                           TopicPanel topicPanel,
+                           NotesOpener notesOpener
+    ) {
         this.studyTopicService = studyTopicService;
         this.topicPanel = topicPanel;
+        this.notesOpener = notesOpener;
+
         init();
     }
+
     private void init() {
         initComboBoxes();
         initListeners();
@@ -89,7 +97,7 @@ public class TopicController {
         JComboBox <StudyStatus> statusBox = new JComboBox<>(StudyStatus.values());
         statusBox.setSelectedItem(selectedTopic.getStatus());
         JTextField hoursField = new JTextField(String.valueOf(selectedTopic.getHoursSpent()));
-        JTextArea notesField = new JTextArea(selectedTopic.getNotes(), 4 , 20);
+        JButton openNotesEditor = new JButton("Open notes editor");
 
         JPanel editPanel = new JPanel(new GridLayout(0 , 2 , 5 ,5));
         editPanel.add(new JLabel("Title:"));
@@ -100,8 +108,15 @@ public class TopicController {
         editPanel.add(statusBox);
         editPanel.add(new JLabel("Hours:"));
         editPanel.add(hoursField);
-        editPanel.add(new JLabel("Notes:"));
-        editPanel.add(new JScrollPane(notesField));
+        editPanel.add(new JLabel("Notes"));
+        editPanel.add(openNotesEditor);
+        openNotesEditor.addActionListener(e -> {
+            notesOpener.open(selectedTopic);
+            Window window = SwingUtilities.getWindowAncestor(openNotesEditor);
+            if (window != null) {
+                window.dispose();
+            }
+        });
         int result = JOptionPane.showConfirmDialog(
                 null,
                 editPanel,
@@ -116,7 +131,7 @@ public class TopicController {
         selectedTopic.setStatus((StudyStatus) statusBox.getSelectedItem());
         double hoursSpent;
         try{
-            String hoursText = hoursField.getText().replaceAll(",", ".");
+            String hoursText = hoursField.getText().replace(",", ".");
             hoursSpent = Double.parseDouble(hoursText);
         }catch(NumberFormatException e){
             JOptionPane.showMessageDialog(
@@ -126,7 +141,6 @@ public class TopicController {
             return;
         }
         selectedTopic.setHoursSpent(hoursSpent);
-        selectedTopic.setNotes(notesField.getText());
         studyTopicTableModel.setStudyTopics(
                 studyTopicService.getAllTopics()
         );

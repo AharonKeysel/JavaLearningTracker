@@ -14,6 +14,7 @@ public class InMemoryStudyTopicRepository implements StudyTopicRepository {
 
     @Override
     public void save(StudyTopic topic) {
+        topics.removeIf(t -> t.getId().equals(topic.getId()));
         topics.add(topic);
     }
 

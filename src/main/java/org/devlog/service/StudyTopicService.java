@@ -11,4 +11,5 @@ public interface StudyTopicService {
     List<StudyTopic> getAllTopics();
     Optional<StudyTopic> getTopicById(UUID id);
     void deleteTopic(UUID id);
+    void updateTopic(StudyTopic topic);
 }

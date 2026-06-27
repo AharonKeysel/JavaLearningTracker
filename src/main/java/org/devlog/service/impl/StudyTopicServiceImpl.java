@@ -36,4 +36,8 @@ public class StudyTopicServiceImpl implements StudyTopicService {
         studyTopicRepository.delete(id);
 
     }
+    @Override
+    public void updateTopic(StudyTopic topic) {
+        studyTopicRepository.save(topic);
+    }
 }
