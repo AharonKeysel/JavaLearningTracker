@@ -24,7 +24,9 @@ public class TopicController {
     }
 
     private void initListeners() {
+
         topicPanel.getCreateButton().addActionListener(e -> addTopic());
+        topicPanel.getDeleteButton().addActionListener(e->deleteSelectedTopic());
     }
 
     private void addTopic() {
@@ -52,6 +54,19 @@ public class TopicController {
 
     }
 
+    private void deleteSelectedTopic() {
+        int selectedRow = topicPanel.getTopicListTable().getSelectedRow();
+
+        if (selectedRow < 0) {
+            return;
+        }
+        StudyTopic selectedTopic =
+                studyTopicTableModel.getTopicAt(selectedRow);
+        studyTopicService.deleteTopic(selectedTopic.getId());
+        studyTopicTableModel.setStudyTopics(studyTopicService.getAllTopics());
+
+    }
+
     private void initComboBoxes() {
         for(TopicCategory category : TopicCategory.values()) {
             topicPanel.getCategoryBox().addItem(category);
@@ -61,4 +76,5 @@ public class TopicController {
         }
 
     }
+
 }

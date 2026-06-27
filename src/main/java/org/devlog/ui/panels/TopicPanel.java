@@ -21,6 +21,7 @@ public class TopicPanel {
     }
 
     private JTable topicListTable;
+    private JButton deleteButton;
 
     public JComboBox getCategoryBox() {
         return categoryBox;
@@ -48,5 +49,9 @@ public class TopicPanel {
 
     public JPanel getTopPanel() {
         return topPanel;
+    }
+
+    public JButton getDeleteButton() {
+        return deleteButton;
     }
 }

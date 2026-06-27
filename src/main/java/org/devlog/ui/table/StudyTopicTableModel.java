@@ -44,5 +44,8 @@ public class StudyTopicTableModel extends AbstractTableModel {
         this.studyTopics.addAll(studyTopics);
         fireTableDataChanged();
     }
+    public  StudyTopic getTopicAt(int rowIndex) {
+        return studyTopics.get(rowIndex);
+    }
 
 }
