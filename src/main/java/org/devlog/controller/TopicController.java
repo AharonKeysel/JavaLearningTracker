@@ -32,8 +32,10 @@ public class TopicController {
         initComboBoxes();
         initListeners();
         topicPanel.getTopicListTable().setModel(studyTopicTableModel);
+        studyTopicTableModel.setStudyTopics(
+                studyTopicService.getAllTopics()
+        );
     }
-
     private void initListeners() {
 
         topicPanel.getCreateButton().addActionListener(e -> addTopic());
@@ -141,6 +143,7 @@ public class TopicController {
             return;
         }
         selectedTopic.setHoursSpent(hoursSpent);
+        studyTopicService.updateTopic(selectedTopic);
         studyTopicTableModel.setStudyTopics(
                 studyTopicService.getAllTopics()
         );
