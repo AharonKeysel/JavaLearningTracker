@@ -5,10 +5,12 @@ import org.devlog.model.enums.StudyStatus;
 import org.devlog.model.enums.TopicCategory;
 import org.devlog.service.StudyTopicService;
 import org.devlog.ui.panels.TopicPanel;
+import org.devlog.ui.table.StudyTopicTableModel;
 
 public class TopicController {
     private final StudyTopicService studyTopicService;
     private final TopicPanel topicPanel;
+    private final StudyTopicTableModel studyTopicTableModel = new StudyTopicTableModel();
 
     public TopicController(StudyTopicService studyTopicService, TopicPanel topicPanel) {
         this.studyTopicService = studyTopicService;
@@ -18,6 +20,7 @@ public class TopicController {
     private void init() {
         initComboBoxes();
         initListeners();
+        topicPanel.getTopicListTable().setModel(studyTopicTableModel);
     }
 
     private void initListeners() {
@@ -42,6 +45,7 @@ public class TopicController {
                 0
         );
         studyTopicService.addTopic(studyTopic);
+        studyTopicTableModel.setStudyTopics(studyTopicService.getAllTopics());
         System.out.println(
                 studyTopicService.getAllTopics());
         topicPanel.getTitleField().setText("");

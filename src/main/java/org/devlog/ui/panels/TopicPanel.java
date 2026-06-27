@@ -10,6 +10,17 @@ public class TopicPanel {
     private JComboBox categoryBox;
     private JButton createButton;
     private JComboBox statusBox;
+    private JScrollPane topicTableScrollPanel;
+
+    public JTable getTopicListTable() {
+        return topicListTable;
+    }
+
+    public JScrollPane getTopicTableScrollPanel() {
+        return topicTableScrollPanel;
+    }
+
+    private JTable topicListTable;
 
     public JComboBox getCategoryBox() {
         return categoryBox;

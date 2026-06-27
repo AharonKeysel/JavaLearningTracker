@@ -15,38 +15,46 @@
         <properties/>
         <border type="none"/>
         <children>
-          <component id="1a0cc" class="javax.swing.JTextField" binding="titleField">
-            <constraints border-constraint="Center"/>
-            <properties/>
-          </component>
-          <grid id="61443" binding="rightPanel" layout-manager="BorderLayout" hgap="0" vgap="0">
+          <grid id="61443" binding="rightPanel" layout-manager="FlowLayout" hgap="5" vgap="5" flow-align="1">
             <constraints border-constraint="East"/>
             <properties/>
             <border type="none"/>
             <children>
               <component id="2512e" class="javax.swing.JComboBox" binding="categoryBox">
-                <constraints border-constraint="North"/>
+                <constraints/>
                 <properties/>
               </component>
               <component id="cc652" class="javax.swing.JComboBox" binding="statusBox">
-                <constraints border-constraint="West"/>
+                <constraints/>
                 <properties/>
               </component>
               <component id="332a2" class="javax.swing.JButton" binding="createButton">
-                <constraints border-constraint="South"/>
+                <constraints/>
                 <properties>
                   <text value="Create"/>
                 </properties>
               </component>
             </children>
           </grid>
+          <component id="1a0cc" class="javax.swing.JTextField" binding="titleField">
+            <constraints border-constraint="Center"/>
+            <properties/>
+          </component>
         </children>
       </grid>
-      <vspacer id="3ffc">
+      <scrollpane id="540ca" binding="topicTableScrollPanel">
         <constraints>
-          <grid row="1" column="1" row-span="1" col-span="1" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false"/>
+          <grid row="1" column="0" row-span="1" col-span="2" vsize-policy="7" hsize-policy="7" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
         </constraints>
-      </vspacer>
+        <properties/>
+        <border type="none"/>
+        <children>
+          <component id="dc071" class="javax.swing.JTable" binding="topicListTable">
+            <constraints/>
+            <properties/>
+          </component>
+        </children>
+      </scrollpane>
     </children>
   </grid>
 </form>
