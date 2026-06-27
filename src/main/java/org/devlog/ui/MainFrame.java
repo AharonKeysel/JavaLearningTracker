@@ -2,7 +2,7 @@ package org.devlog.ui;
 
 import org.devlog.controller.NotesController;
 import org.devlog.controller.TopicController;
-import org.devlog.repository.impl.InMemoryStudyTopicRepository;
+import org.devlog.repository.impl.JsonStudyTopicRepository;
 import org.devlog.service.StudyTopicService;
 import org.devlog.service.impl.StudyTopicServiceImpl;
 import org.devlog.ui.panels.NotesPanel;
@@ -38,7 +38,7 @@ public class MainFrame extends JFrame {
         tabbedPane.addTab("Topics", topicPanel.getMainPanel());
         tabbedPane.addTab("Notes", notesPanel.getMainPanel());
 
-        InMemoryStudyTopicRepository repository = new InMemoryStudyTopicRepository();
+        JsonStudyTopicRepository repository = new JsonStudyTopicRepository();
         StudyTopicService service = new StudyTopicServiceImpl(repository);
         NotesController notesController = new NotesController(service, notesPanel);
         new TopicController(
