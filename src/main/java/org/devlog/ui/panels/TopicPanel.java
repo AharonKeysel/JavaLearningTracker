@@ -22,6 +22,7 @@ public class TopicPanel {
 
     private JTable topicListTable;
     private JButton deleteButton;
+    private JButton editButton;
 
     public JComboBox getCategoryBox() {
         return categoryBox;
@@ -53,5 +54,9 @@ public class TopicPanel {
 
     public JButton getDeleteButton() {
         return deleteButton;
+    }
+
+    public JButton getEditButton() {
+        return editButton;
     }
 }

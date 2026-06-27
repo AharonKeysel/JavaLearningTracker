@@ -7,6 +7,8 @@ import org.devlog.service.StudyTopicService;
 import org.devlog.ui.panels.TopicPanel;
 import org.devlog.ui.table.StudyTopicTableModel;
 
+import javax.swing.*;
+
 public class TopicController {
     private final StudyTopicService studyTopicService;
     private final TopicPanel topicPanel;
@@ -27,6 +29,7 @@ public class TopicController {
 
         topicPanel.getCreateButton().addActionListener(e -> addTopic());
         topicPanel.getDeleteButton().addActionListener(e->deleteSelectedTopic());
+        topicPanel.getEditButton().addActionListener(e->editSelectedTopic());
     }
 
     private void addTopic() {
@@ -66,6 +69,23 @@ public class TopicController {
         studyTopicTableModel.setStudyTopics(studyTopicService.getAllTopics());
 
     }
+    private void editSelectedTopic() {
+        int selectedRow = topicPanel.getTopicListTable().getSelectedRow();
+        if (selectedRow < 0) {
+            return;
+        }
+        StudyTopic selectedTopic =
+                studyTopicTableModel.getTopicAt(selectedRow);
+        String newTitle = JOptionPane.showInputDialog("Enter new title");
+        if (newTitle == null || newTitle.isBlank()) {
+            return;
+        }
+        selectedTopic.setTitle(newTitle);
+        studyTopicTableModel.setStudyTopics(studyTopicService.getAllTopics());
+
+
+    }
+
 
     private void initComboBoxes() {
         for(TopicCategory category : TopicCategory.values()) {
