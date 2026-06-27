@@ -8,6 +8,7 @@ import org.devlog.ui.panels.TopicPanel;
 import org.devlog.ui.table.StudyTopicTableModel;
 
 import javax.swing.*;
+import java.awt.*;
 
 public class TopicController {
     private final StudyTopicService studyTopicService;
@@ -76,12 +77,60 @@ public class TopicController {
         }
         StudyTopic selectedTopic =
                 studyTopicTableModel.getTopicAt(selectedRow);
-        String newTitle = JOptionPane.showInputDialog("Enter new title");
-        if (newTitle == null || newTitle.isBlank()) {
+//        String newTitle = JOptionPane.showInputDialog("Enter new title");
+//        if (newTitle == null || newTitle.isBlank()) {
+//            return;
+//        }
+//        selectedTopic.setTitle(newTitle);
+//        studyTopicTableModel.setStudyTopics(studyTopicService.getAllTopics());
+        JTextField titleField = new JTextField(selectedTopic.getTitle());
+        JComboBox <TopicCategory> categoryBox = new JComboBox<>(TopicCategory.values());
+        categoryBox.setSelectedItem(selectedTopic.getCategory());
+        JComboBox <StudyStatus> statusBox = new JComboBox<>(StudyStatus.values());
+        statusBox.setSelectedItem(selectedTopic.getStatus());
+        JTextField hoursField = new JTextField(String.valueOf(selectedTopic.getHoursSpent()));
+        JTextArea notesField = new JTextArea(selectedTopic.getNotes(), 4 , 20);
+
+        JPanel editPanel = new JPanel(new GridLayout(0 , 2 , 5 ,5));
+        editPanel.add(new JLabel("Title:"));
+        editPanel.add(titleField);
+        editPanel.add(new JLabel("Category:"));
+        editPanel.add(categoryBox);
+        editPanel.add(new JLabel("Status:"));
+        editPanel.add(statusBox);
+        editPanel.add(new JLabel("Hours:"));
+        editPanel.add(hoursField);
+        editPanel.add(new JLabel("Notes:"));
+        editPanel.add(new JScrollPane(notesField));
+        int result = JOptionPane.showConfirmDialog(
+                null,
+                editPanel,
+                "Edit Topic",
+                JOptionPane.OK_CANCEL_OPTION,
+                JOptionPane.PLAIN_MESSAGE);
+        if (result != JOptionPane.OK_OPTION) {
             return;
         }
-        selectedTopic.setTitle(newTitle);
-        studyTopicTableModel.setStudyTopics(studyTopicService.getAllTopics());
+        selectedTopic.setTitle(titleField.getText());
+        selectedTopic.setCategory((TopicCategory) categoryBox.getSelectedItem());
+        selectedTopic.setStatus((StudyStatus) statusBox.getSelectedItem());
+        double hoursSpent;
+        try{
+            String hoursText = hoursField.getText().replaceAll(",", ".");
+            hoursSpent = Double.parseDouble(hoursText);
+        }catch(NumberFormatException e){
+            JOptionPane.showMessageDialog(
+                    null,
+                    "Hours must be a number!"
+            );
+            return;
+        }
+        selectedTopic.setHoursSpent(hoursSpent);
+        selectedTopic.setNotes(notesField.getText());
+        studyTopicTableModel.setStudyTopics(
+                studyTopicService.getAllTopics()
+        );
+
 
 
     }
