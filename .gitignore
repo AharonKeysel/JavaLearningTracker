@@ -5,14 +5,11 @@ target/
 .kotlin
 
 ### IntelliJ IDEA ###
-.idea/modules.xml
-.idea/jarRepositories.xml
-.idea/compiler.xml
-.idea/libraries/
-*.iws
+.idea/
 *.iml
-*.ipr
-
+target/
+*.class
+*.json
 ### Eclipse ###
 .apt_generated
 .classpath
