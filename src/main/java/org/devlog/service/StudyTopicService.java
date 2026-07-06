@@ -12,4 +12,5 @@ public interface StudyTopicService {
     Optional<StudyTopic> getTopicById(UUID id);
     void deleteTopic(UUID id);
     void updateTopic(StudyTopic topic);
+    List<StudyTopic> searchByTitle(String query);
 }

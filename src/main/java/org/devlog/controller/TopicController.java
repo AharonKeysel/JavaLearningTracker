@@ -9,6 +9,8 @@ import org.devlog.ui.panels.TopicPanel;
 import org.devlog.ui.table.StudyTopicTableModel;
 
 import javax.swing.*;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 import java.awt.*;
 
 public class TopicController {
@@ -36,11 +38,37 @@ public class TopicController {
                 studyTopicService.getAllTopics()
         );
     }
+    private void searchTopics(){
+        String query = topicPanel.getSearchField().getText();
+
+        studyTopicTableModel.setStudyTopics(
+                studyTopicService.searchByTitle(query)
+        );
+    }
+
     private void initListeners() {
 
         topicPanel.getCreateButton().addActionListener(e -> addTopic());
         topicPanel.getDeleteButton().addActionListener(e->deleteSelectedTopic());
         topicPanel.getEditButton().addActionListener(e->editSelectedTopic());
+        topicPanel.getSearchField()
+                .getDocument()
+                .addDocumentListener(new DocumentListener() {
+                    @Override
+                    public void insertUpdate(DocumentEvent e) {
+                        searchTopics();
+                    }
+
+                    @Override
+                    public void removeUpdate(DocumentEvent e) {
+                        searchTopics();
+                    }
+
+                    @Override
+                    public void changedUpdate(DocumentEvent e) {
+                        searchTopics();
+                    }
+                });
     }
 
     private void addTopic() {

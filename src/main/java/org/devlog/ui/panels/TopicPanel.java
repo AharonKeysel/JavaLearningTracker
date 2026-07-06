@@ -24,6 +24,9 @@ public class TopicPanel {
     private JTable topicListTable;
     private JButton deleteButton;
     private JButton editButton;
+    private JTextField searchField;
+    private JPanel searchPanel;
+    private JLabel titleName;
 
     public JComboBox getCategoryBox() {
         return categoryBox;
@@ -59,5 +62,9 @@ public class TopicPanel {
 
     public JButton getEditButton() {
         return editButton;
+    }
+
+    public JTextField getSearchField() {
+        return searchField;
     }
 }

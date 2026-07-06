@@ -11,6 +11,8 @@ import java.util.UUID;
 public class StudyTopicServiceImpl implements StudyTopicService {
     private final StudyTopicRepository studyTopicRepository;
 
+
+
     public StudyTopicServiceImpl(StudyTopicRepository studyTopicRepository) {
         this.studyTopicRepository = studyTopicRepository;
     }
@@ -39,5 +41,20 @@ public class StudyTopicServiceImpl implements StudyTopicService {
     @Override
     public void updateTopic(StudyTopic topic) {
         studyTopicRepository.save(topic);
+    }
+    @Override
+    public List<StudyTopic> searchByTitle(String query) {
+        if(query==null){
+            return getAllTopics();
+        }
+        String normalizedQuery = query.strip().toLowerCase();
+        if(normalizedQuery.isEmpty()){
+            return getAllTopics();
+        }
+        return getAllTopics().stream()
+                .filter(topic -> topic.getTitle()
+                        .toLowerCase()
+                        .contains(normalizedQuery))
+                .toList();
     }
 }
